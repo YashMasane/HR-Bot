@@ -1,0 +1,85 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# HR Bot — .gitignore
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Secrets & Environment ─────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+secrets/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ── Virtual Environments ──────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.conda/
+
+# ── Jupyter Notebooks ─────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# ── ChromaDB (vector store — can be large, rebuilt from source docs) ──────────
+chroma_db/
+*.chroma
+*.sqlite3
+
+# ── LangSmith / LangChain cache ───────────────────────────────────────────────
+.langchain/
+.langchain_cache/
+
+# ── LiteLLM cache ─────────────────────────────────────────────────────────────
+.litellm_cache/
+litellm_cache.db
+
+# ── Data & Evaluation outputs ─────────────────────────────────────────────────
+data/raw/
+data/processed/
+eval_results/
+*.csv
+*.parquet
+*.jsonl
+
+# ── Model / Embedding artifacts ───────────────────────────────────────────────
+*.bin
+*.pt
+*.onnx
+models/
+
+# ── Logs & Traces ────────────────────────────────────────────────────────────
+logs/
+*.log
+trace_*.json
+
+# ── OS & Editor ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ── Temp & Test artifacts ────────────────────────────────────────────────────
+tmp/
+temp/
+scratch/
+test_output/
