@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This document defines the complete architecture for the **Self-Reflective Agentic RAG** subsystem of HR Bot. The goal is to build a production-grade internal AI assistant that can answer HR policy questions, combine policy retrieval with structured employee data tools, enforce strict access control, provide citations for every grounded answer, and minimize hallucinations through reflection and verification loops.[cite:31][cite:40]
+This document defines the complete architecture for the **Self-Reflective Agentic RAG** subsystem of HR Bot. The goal is to build a production-grade internal AI assistant that can answer HR policy questions, combine policy retrieval with structured employee data tools, enforce strict access control, provide citations for every grounded answer, and minimize hallucinations through reflection and verification loops.
 
-The first implementation target is a notebook-based RAG system used for rapid experimentation, evaluation, and architectural validation before integrating it into the end-to-end FastAPI product. This notebook stage should produce measurable evidence across retrieval quality, answer quality, latency, and cost so that later backend engineering is guided by data rather than assumptions.[cite:28][cite:54]
+The first implementation target is a notebook-based RAG system used for rapid experimentation, evaluation, and architectural validation before integrating it into the end-to-end FastAPI product. This notebook stage should produce measurable evidence across retrieval quality, answer quality, latency, and cost so that later backend engineering is guided by data rather than assumptions.`   z2909
 
 ## Product Boundaries
 
@@ -295,17 +295,12 @@ RAG evaluation should be split into retrieval, generation, and operational layer
 
 - Context Precision@K.[cite:49][cite:57]
 - Context Recall@K.[cite:49][cite:57]
-- Hit Rate@K.[cite:56]
-- MRR.[cite:56]
-- nDCG.[cite:56]
 
 ### Generation Metrics
 
 - Faithfulness / groundedness.[cite:49][cite:54]
 - Answer relevancy.[cite:46][cite:54]
-- Factual correctness when a golden answer exists.[cite:57]
 - Citation accuracy.
-- Noise sensitivity under distractor documents.[cite:57]
 
 ### Operational Metrics
 
