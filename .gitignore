@@ -60,8 +60,7 @@ eval_results/
 # ── Model / Embedding artifacts ───────────────────────────────────────────────
 *.bin
 *.pt
-*.onnx
-models/
+*.onnx/
 
 # ── Logs & Traces ────────────────────────────────────────────────────────────
 logs/
