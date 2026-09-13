@@ -1,0 +1,70 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# HR Bot — Document Registry
+# ─────────────────────────────────────────────────────────────────────────────
+#
+# This file is the ONLY place you need to edit when adding a new document.
+# The ingestion code reads this file at runtime — no Python changes required.
+#
+# RBAC design (document-category based):
+#   Each document declares which roles can retrieve its chunks.
+#   The agent injects the current user's roles as a Chroma filter at
+#   query time — unauthorized chunks are never returned.
+#
+# Known roles: employee | manager | hr | finance | sales | marketing
+#
+# Metadata purpose split:
+#   access_roles / document_category  → RBAC filtering during retrieval
+#   section / subsection / page       → citations only (not used as retrieval filter)
+# ─────────────────────────────────────────────────────────────────────────────
+
+documents:
+
+  - path: "nexaai-company-policy.pdf"
+    document_id: "nexaai-company-policy"
+    document_category: "policy"
+    description: "NexaAI Employee Handbook and HR Policy"
+    access_roles:
+      - employee
+      - manager
+      - hr
+      - finance
+      - sales
+      - marketing
+    version: "1.0"
+    effective_date: "2025-01-01"
+
+  # Add new documents below — no code changes needed.
+  # Paths are relative to the location of this YAML file (i.e. the data/ folder).
+  #
+  # - path: "nexaai-finance-handbook.pdf"
+  #   document_id: "nexaai-finance-handbook"
+  #   document_category: "finance"
+  #   description: "NexaAI Finance team policies and procedures"
+  #   access_roles:
+  #     - finance
+  #     - manager
+  #     - hr
+  #   version: "1.0"
+  #   effective_date: "2025-01-01"
+  #
+  # - path: "nexaai-sales-playbook.pdf"
+  #   document_id: "nexaai-sales-playbook"
+  #   document_category: "sales"
+  #   description: "NexaAI Sales team playbook"
+  #   access_roles:
+  #     - sales
+  #     - manager
+  #     - hr
+  #   version: "1.0"
+  #   effective_date: "2025-01-01"
+  #
+  # - path: "nexaai-marketing-guide.pdf"
+  #   document_id: "nexaai-marketing-guide"
+  #   document_category: "marketing"
+  #   description: "NexaAI Marketing team guidelines"
+  #   access_roles:
+  #     - marketing
+  #     - manager
+  #     - hr
+  #   version: "1.0"
+  #   effective_date: "2025-01-01"
