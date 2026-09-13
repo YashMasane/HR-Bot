@@ -17,7 +17,7 @@ class ChatSession(Base, UUIDPKMixin):
 
     __tablename__ = "chat_sessions"
 
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     org_id = Column(UUID(as_uuid=True), ForeignKey("organizations.id", ondelete="CASCADE"), nullable=False)
     langgraph_thread_id = Column(String(64), nullable=False, unique=True, index=True)
     title = Column(String(255), nullable=True)

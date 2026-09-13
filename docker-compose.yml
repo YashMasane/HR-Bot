@@ -23,6 +23,27 @@ services:
       - redis_data:/data
     restart: unless-stopped
 
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    container_name: hr_bot_worker
+    env_file:
+      - .env
+    environment:
+      # .env's POSTGRES_SERVER/PORT and REDIS_HOST/PORT point at localhost +
+      # the host-mapped ports (5433/6380) for the app running outside Docker.
+      # From inside this container, "localhost" would mean the container
+      # itself - these override to the real service names/ports on the
+      # compose network instead.
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      POSTGRES_SERVER: db
+      POSTGRES_PORT: "5432"
+    depends_on:
+      - redis
+    restart: unless-stopped
+
 volumes:
   postgres_data:
   redis_data:

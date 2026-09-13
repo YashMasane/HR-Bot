@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30 # 30 minutes
     REFRESH_TOKEN_EXPIRE_MINUTES: int = 10080 # 7 days in minutes
     INVITE_EXPIRE_HOURS: int = 168 # 7 days
+    SIGNUP_VERIFICATION_EXPIRE_HOURS: int = 24
     
     # Database
     POSTGRES_SERVER: str
@@ -45,6 +46,9 @@ class Settings(BaseSettings):
     # Rate Limiting
     RATE_LIMIT_DEFAULT: str = "100/minute"
 
+    # Logging
+    LOG_LEVEL: str = "INFO"
+
     # LLM Settings
     DEFAULT_LLM_PROVIDER: str
     DEFAULT_LLM_MODEL: str
@@ -63,6 +67,7 @@ class Settings(BaseSettings):
 
     # Email (invite delivery)
     RESEND_API_KEY: Optional[str] = None
+    SENDGRID_API_KEY: Optional[str] = None
     EMAIL_FROM_ADDRESS: str = "onboarding@resend.dev"
     EMAIL_FROM_NAME: str = "HR Bot"
     # Where accept-invite links point. No frontend exists yet, so this is a

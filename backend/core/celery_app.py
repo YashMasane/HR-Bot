@@ -1,6 +1,9 @@
 from celery import Celery
 
 from backend.core.config import settings
+from backend.core.logging_config import setup_logging
+
+setup_logging()
 
 celery_app = Celery(
     "hr_bot",

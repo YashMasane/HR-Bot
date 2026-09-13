@@ -38,7 +38,7 @@ class LeaveBalance(Base, UUIDPKMixin):
         UniqueConstraint("user_id", "leave_type_id", "year", name="uq_leave_balance_user_type_year"),
     )
 
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     leave_type_id = Column(UUID(as_uuid=True), ForeignKey("leave_types.id"), nullable=False)
     year = Column(SmallInteger, nullable=False)
     allocated = Column(Numeric(5, 2), nullable=False)
@@ -53,7 +53,7 @@ class LeaveRequest(Base, UUIDPKMixin, TimestampMixin):
         CheckConstraint("end_date >= start_date", name="ck_leave_request_date_order"),
     )
 
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     leave_type_id = Column(UUID(as_uuid=True), ForeignKey("leave_types.id"), nullable=False)
     start_date = Column(Date, nullable=False)
     end_date = Column(Date, nullable=False)
@@ -66,8 +66,11 @@ class LeaveRequest(Base, UUIDPKMixin, TimestampMixin):
     )
     # Resolved once at creation time and never recomputed - see architecture
     # doc section 14.1: keeps request history accurate even if org admins
-    # change later.
-    approver_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    # change later. SET NULL (not CASCADE) on delete: this FK points at the
+    # approver, not the request's owner (user_id already is) - deleting the
+    # approver's account should blank out who approved it, not delete a
+    # different employee's leave request out from under them.
+    approver_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
     reason = Column(Text, nullable=True)
     decided_at = Column(DateTime(timezone=True), nullable=True)
 
