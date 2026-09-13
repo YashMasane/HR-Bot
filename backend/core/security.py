@@ -45,19 +45,21 @@ def create_refresh_token(data: dict, expires_delta: timedelta | None = None) -> 
     return encoded_jwt
 
 
-def generate_invite_token() -> str:
+def generate_secure_token() -> str:
     """32 bytes of randomness, URL-safe. This is the raw token that goes in
-    the invite link/email - it exists only in that link, never stored as-is.
+    an email link (invite, email verification, ...) - it exists only in that
+    link, never stored as-is.
     """
     return secrets.token_urlsafe(32)
 
 
-def hash_invite_token(token: str) -> str:
-    """Unlike passwords, invite tokens don't need bcrypt's slow, salted
+def hash_token(token: str) -> str:
+    """Unlike passwords, these tokens don't need bcrypt's slow, salted
     hashing. Bcrypt earns its cost defending short, human-guessable secrets
-    against offline brute force. An invite token is 256 bits of randomness -
-    nobody is going to guess it either way. A plain SHA-256 hash is enough to
-    make the stored value useless if the DB ever leaks, and it's fast enough
-    to look up by (`WHERE token_hash = :hash`), which bcrypt deliberately isn't.
+    against offline brute force. A token from generate_secure_token() is 256
+    bits of randomness - nobody is going to guess it either way. A plain
+    SHA-256 hash is enough to make the stored value useless if the DB ever
+    leaks, and it's fast enough to look up by (`WHERE token_hash = :hash`),
+    which bcrypt deliberately isn't.
     """
     return hashlib.sha256(token.encode("utf-8")).hexdigest()
