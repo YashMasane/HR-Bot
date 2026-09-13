@@ -30,7 +30,7 @@ class Invite(Base, UUIDPKMixin):
     # directly usable.
     token_hash = Column(String(255), nullable=False, unique=True, index=True)
 
-    invited_by = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    invited_by = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     expires_at = Column(DateTime(timezone=True), nullable=False)
     accepted_at = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), default=utcnow, nullable=False)

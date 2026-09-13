@@ -20,7 +20,7 @@ class AuditLog(Base, UUIDPKMixin):
     __table_args__ = (Index("ix_audit_logs_org_created", "org_id", "created_at"),)
 
     org_id = Column(UUID(as_uuid=True), ForeignKey("organizations.id", ondelete="CASCADE"), nullable=False)
-    actor_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    actor_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     action = Column(String(50), nullable=False)
     target_type = Column(String(50), nullable=True)
     target_id = Column(UUID(as_uuid=True), nullable=True)

@@ -29,7 +29,7 @@ class KBDocument(Base, UUIDPKMixin, TimestampMixin):
     )
     storage_path = Column(String(500), nullable=True)
     chroma_collection = Column(String(100), nullable=False)
-    uploaded_by = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    uploaded_by = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     version = Column(Integer, nullable=False, default=1)
     is_active = Column(Boolean, nullable=False, default=True)
 
