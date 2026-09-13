@@ -4,18 +4,38 @@ from uuid import UUID
 
 from pydantic import BaseModel, EmailStr, Field
 
-from backend.models.enums import UserRole
+from backend.models.enums import CompanyType, Industry, UserRole
 
 
 class OrganizationCreate(BaseModel):
     """The one and only self-service entry point into the whole app - see
     architecture doc section 14.1. Everyone after this signs up via invite.
+
+    Only the fields needed to classify the org and create its first admin
+    live here. Everything else (website, size, description, ...) is
+    optional and set later via PATCH /organizations/me - see
+    schemas/organization_schema.py - so signup stays short.
     """
 
     org_name: str = Field(min_length=1, max_length=255)
+    company_type: CompanyType
+    industry: Industry
     full_name: str = Field(min_length=1, max_length=255)
     email: EmailStr
     password: str = Field(min_length=8)
+
+
+class OrganizationSignupPending(BaseModel):
+    """Response for POST /setup-organization. Nothing has been created yet -
+    this just confirms a verification email is on its way.
+    """
+
+    email: EmailStr
+    message: str = "Verification email sent. Check your inbox to finish setting up your organization."
+
+
+class VerifyEmailRequest(BaseModel):
+    token: str
 
 
 class InviteCreate(BaseModel):
